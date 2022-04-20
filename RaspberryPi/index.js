@@ -1,17 +1,17 @@
 require("dotenv").config();
-const { SerialPort } = require("serialport");
+console.log(require("./serial.js"))
+const { opened, write } = require("./serial.js");
 const { start, emitter } = require("./commandScheduler.js");
-const port = new SerialPort({
-	path: process.env.SERIALPORT_PATH,
-	baudRate: 9600,
-});
 
-const opened = new Promise(resolve => port.on("open", resolve));
 emitter.on("command", command => {
-	port.write(command);
+	write(command);
 });
 
-opened.then(() => {
-	port.write("Command Test");
-	start().then(() => console.log("Complete Start Script"));
+const indexMain = opened.then(async() => {
+	write("Command Test");
+	await start();
+	console.log("Complete Start Script");
+	return 0;
 });
+
+module.exports = indexMain;
