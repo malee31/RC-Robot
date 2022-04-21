@@ -1,5 +1,7 @@
+const basicLog = require("console").log;
+
 module.exports = {
 	...require("../serial.js"),
-	write: jest.fn(console.log),
+	write: basicLog,
 	opened: Promise.resolve()
 };
