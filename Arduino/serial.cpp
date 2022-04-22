@@ -1,4 +1,5 @@
 #include "serial.h"
+
 unsigned int CommandSerial::instructionSize = sizeof(char) + sizeof(unsigned int);
 Instruction CommandSerial::STOP = {'\0', 0};
 

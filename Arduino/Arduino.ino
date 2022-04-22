@@ -1,15 +1,15 @@
 #include "serial.h"
+#include "commands.h"
 
 CommandSerial commands;
 unsigned long startTime, currentTime;
 
 void setup() {
-    Serial.begin(9600);
-    Serial1.begin(9600);
-    Serial.println("Starting");
+    CommandSerial::commandSerial.begin(9600);
+    CommandSerial::logSerial.begin(9600);
 
-    pinMode(LED_BUILTIN, OUTPUT);
-
+    CommandSerial::logSerial.println("Starting");
+    prepareCommands();
     startTime = millis();
 }
 
@@ -17,8 +17,8 @@ void continueAction() {
     if (commands.stopped()) {
         return;
     }
-    Serial.print("Action Performed: ");
-    Serial.println(commands.currentInstruction.actionCode);
+    CommandSerial::logSerial.print("Action Performed: ");
+    CommandSerial::logSerial.println(commands.currentInstruction.actionCode);
 }
 
 void loop() {
@@ -30,7 +30,7 @@ void loop() {
     continueAction();
 
     delay(500);
-    digitalWrite(LED_BUILTIN, HIGH);
+    setLED(true);
     delay(500);
-    digitalWrite(LED_BUILTIN, LOW);
+    setLED(false);
 }
