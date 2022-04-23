@@ -8,9 +8,11 @@ async function sleep(duration) {
 }
 
 async function emitTests() {
-	for(const command in commandBuffer) {
-		emitCommand(command);
-		await sleep(1000);
+	while(true) {
+		for(const command in commandBuffer) {
+			emitCommand(command);
+			await sleep(1000);
+		}
 	}
 }
 

@@ -7,7 +7,10 @@ const port = new SerialPort({
 
 const opened = new Promise(resolve => port.on("open", resolve));
 
+port.on("data", data => console.log(`Received: ${data}`));
+
 function write(data) {
+	console.log(`Write: ${data}`);
 	port.write(data);
 }
 
