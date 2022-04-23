@@ -5,10 +5,10 @@ CommandSerial commands;
 unsigned long startTime, currentTime;
 
 void setup() {
-    CommandSerial::commandSerial.begin(9600);
-    CommandSerial::logSerial.begin(9600);
+    Serial.begin(9600);
+    Serial1.begin(9600);
 
-    CommandSerial::logSerial.println("Starting");
+    Serial.println("Starting");
     prepareCommands();
     startTime = millis();
 }
@@ -17,20 +17,28 @@ void continueAction() {
     if (commands.stopped()) {
         return;
     }
-    CommandSerial::logSerial.print("Action Performed: ");
-    CommandSerial::logSerial.println(commands.currentInstruction.actionCode);
+    String actionCode = commands.currentInstruction.actionCode;
+
+    if(actionCode == "LED_ON") {
+        setLED(true);
+    }
+    if(actionCode == "LED_OFF") {
+        setLED(false);
+    }
+
+        Serial.print("Action Performed: ");
+    Serial.println(commands.currentInstruction.actionCode);
 }
 
 void loop() {
     currentTime = millis();
     const unsigned long elapsedTime = currentTime - startTime;
-    if (elapsedTime >= commands.currentInstruction.actionEnd) {
-        commands.readAction();
+    if (CommandSerial::serialState == 3 &&
+        elapsedTime >= strtoul(commands.currentInstruction.actionEnd.c_str(), NULL, 0)) {
+        commands.currentInstruction = commands.nextInstruction;
+        commands.nextInstruction = {"", ""};
+        CommandSerial::serialState = 1;
     }
+    commands.readAction();
     continueAction();
-
-    delay(500);
-    setLED(true);
-    delay(500);
-    setLED(false);
 }

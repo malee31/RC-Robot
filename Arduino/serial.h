@@ -4,17 +4,17 @@
 #include "Arduino.h"
 
 typedef struct {
-    char actionCode;
-    unsigned int actionEnd;
+    String actionCode;
+    String actionEnd;
 } Instruction;
 
 class CommandSerial {
 public:
-    static auto &commandSerial = Serial1;
-    static auto &logSerial = Serial;
+    static int serialState;
     static unsigned int instructionSize;
     static Instruction STOP;
     Instruction currentInstruction;
+    Instruction nextInstruction;
 
     CommandSerial();
 

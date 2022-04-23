@@ -1,7 +1,7 @@
 #include "commands.h"
 
 void prepareCommands() {
-    CommandSerial::logSerial.println("Starting Commands");
+    Serial.println("Starting Commands");
     pinMode(LED_BUILTIN, OUTPUT);
 }
 
