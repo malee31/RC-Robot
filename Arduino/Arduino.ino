@@ -2,13 +2,14 @@
 #include "commands.h"
 
 CommandSerial commands;
-unsigned long startTime, currentTime;
+unsigned long startTime, currentTime, offsetTime;
 
 void setup() {
     Serial.begin(9600);
     Serial.println("Starting");
     prepareCommands();
     startTime = millis();
+    offsetTime = startTime;
 }
 
 void continueAction() {
@@ -27,15 +28,17 @@ void continueAction() {
 
 void loop() {
     currentTime = millis();
-    const unsigned long elapsedTime = currentTime - startTime;
+    const unsigned long totalElapsedTime = currentTime - startTime;
+    const unsigned long elapsedTime = currentTime - offsetTime;
     if (CommandSerial::serialState == 3 &&
         elapsedTime >= strtoul(commands.currentInstruction.actionEnd.c_str(), NULL, 0)) {
-        Serial.print("Action Performed: ");
-        Serial.println(commands.currentInstruction.actionCode);
-
+        // Shifts to next action and disposes of the expired one if the next one is ready. Will continue old action if new action is not ready
         commands.currentInstruction = commands.nextInstruction;
+        Serial.println("Starting Action: " + commands.currentInstruction.actionCode);
+
         commands.nextInstruction = {"", ""};
         CommandSerial::serialState = 1;
+        offsetTime = currentTime;
     }
     commands.readAction();
     continueAction();
