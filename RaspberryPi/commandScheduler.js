@@ -1,26 +1,33 @@
 const EventEmitter = require('events')
 const commandEmitter = new EventEmitter();
-const testCommands = require("./testCommands.json");
-const commandBuffer = testCommands.tests;
+// Use for all promises from emitCommand that you do not intend to handle yourself
+const emitPromiseBuffer = [];
+const commandBuffer = [];
 
 async function sleep(duration) {
 	return new Promise(resolve => setTimeout(resolve, duration));
 }
 
-async function emitTests() {
-	while(true) {
-		for(const command in commandBuffer) {
-			emitCommand(command);
-			await sleep(1000);
-		}
-	}
+async function emitCommand(command, duration = 0, delay = 0) {
+	commandBuffer.push([command, duration]);
+	await sleep(delay)
+	shiftCommand();
 }
 
-function emitCommand(command) {
-	commandEmitter.emit("command", command);
+function shiftCommand() {
+	commandEmitter.emit("command", ...commandBuffer.shift());
+	fireEmpty();
+}
+
+function fireEmpty() {
+	if(commandBuffer.length === 0) {
+		commandEmitter.emit("empty");
+	}
 }
 
 module.exports = {
 	emitter: commandEmitter,
-	start: () => emitTests()
+	emitCommand,
+	commandBuffer,
+	emitPromiseBuffer
 };
