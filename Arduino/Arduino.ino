@@ -1,8 +1,10 @@
 #include "serial.h"
 #include "commands.h"
+#include "Robot.h"
 
 CommandSerial commands;
 unsigned long startTime, currentTime, offsetTime;
+Robot robot;
 
 void setup() {
     Serial.begin(9600);
@@ -10,6 +12,7 @@ void setup() {
     prepareCommands();
     startTime = millis();
     offsetTime = startTime;
+	robot = Robot::getInstance();
 }
 
 void continueAction() {
@@ -19,23 +22,32 @@ void continueAction() {
     String actionCode = commands.currentInstruction.actionCode;
 
     if (actionCode == "LED_ON") {
-        setLED(true);
+		robot.setLED(true);
+    } else if (actionCode == "LED_OFF") {
+		robot.setLED(false);
     }
-    if (actionCode == "LED_OFF") {
-        setLED(false);
-    }
+
     if (actionCode == "FORWARD") {
         // Max both forwards
-    }
-    if (actionCode == "REVERSE") {
+		robot.setMotorLeft(1);
+		robot.setMotorRight(1);
+    } else if (actionCode == "REVERSE") {
         // Max both backwards
+		robot.setMotorLeft(-1);
+		robot.setMotorRight(-1);
     }
+
     if (actionCode == "LEFT") {
         // Max left forwards and right backwards
-    }
-    if (actionCode == "RIGHT") {
+		robot.setMotorLeft(1);
+		robot.setMotorRight(-1);
+    } else if (actionCode == "RIGHT") {
         // Max right forwards and left backwards
+		robot.setMotorLeft(-1);
+		robot.setMotorRight(1);
     }
+
+	setLED(robot.ledOn);
 }
 
 void loop() {
