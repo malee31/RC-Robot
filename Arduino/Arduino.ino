@@ -24,6 +24,18 @@ void continueAction() {
     if (actionCode == "LED_OFF") {
         setLED(false);
     }
+    if (actionCode == "FORWARD") {
+        // Max both forwards
+    }
+    if (actionCode == "REVERSE") {
+        // Max both backwards
+    }
+    if (actionCode == "LEFT") {
+        // Max left forwards and right backwards
+    }
+    if (actionCode == "RIGHT") {
+        // Max right forwards and left backwards
+    }
 }
 
 void loop() {
