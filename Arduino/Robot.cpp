@@ -1,6 +1,6 @@
 #include "Robot.h"
 
-static Robot& Robot::getInstance() {
+Robot& Robot::getInstance() {
 	static Robot instance;
 	return instance;
 }

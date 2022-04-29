@@ -8,4 +8,8 @@ void prepareCommands();
 
 void setLED(bool turnOn);
 
+void setMotorLeft(float percentage);
+
+void setMotorRight(float percentage);
+
 #endif

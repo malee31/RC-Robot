@@ -1,7 +1,15 @@
 const EventEmitter = require('events')
 const commandEmitter = new EventEmitter();
-// Use for all promises from emitCommand that you do not intend to handle yourself
-const emitPromiseBuffer = [];
+
+/**
+ * @typedef QueuedCommand
+ * @type {[string, number, number]} Command to emit, duration, and delay before emit
+ */
+
+/**
+ * Array of queued commands
+ * @type {QueuedCommand[]}
+ */
 const commandBuffer = [];
 
 async function sleep(duration) {
@@ -9,8 +17,8 @@ async function sleep(duration) {
 }
 
 async function emitCommand(command, duration = 0, delay = 0) {
-	commandBuffer.push([command, duration]);
-	await sleep(delay)
+	commandBuffer.push([command, duration, delay]);
+	await sleep(delay);
 	shiftCommand();
 }
 
@@ -28,6 +36,5 @@ function fireEmpty() {
 module.exports = {
 	emitter: commandEmitter,
 	emitCommand,
-	commandBuffer,
-	emitPromiseBuffer
+	commandBuffer
 };
