@@ -12,7 +12,7 @@ Command format as a regex: `/[A-Z_]+\w[0-9]+\w/`
 
 ## Valid Commands
 
-```asm
+```
 LED_ON: Turns on LED
 LED_OFF: Turns off LED
 FORWARD: Both motors to full forwards

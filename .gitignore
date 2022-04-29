@@ -1,2 +1,9 @@
 # IDE Settings
 .idea/
+cmake-build-debug/
+CMakeFiles/
+*.cbp
+CMakeCache.txt
+Makefile
+CMakeLists.txt
+cmake_install.cmake
