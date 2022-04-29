@@ -1,26 +1,26 @@
 #ifndef ARDUINO_SERIAL_H
 #define ARDUINO_SERIAL_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 typedef struct {
-    String actionCode;
-    String actionEnd;
+	String actionCode;
+	String actionEnd;
 } Instruction;
 
 class CommandSerial {
 public:
-    static int serialState;
-    static unsigned int instructionSize;
-    static Instruction STOP;
-    Instruction currentInstruction;
-    Instruction nextInstruction;
+	static int serialState;
+	static unsigned int instructionSize;
+	static Instruction STOP;
+	Instruction currentInstruction;
+	Instruction nextInstruction;
 
-    CommandSerial();
+	CommandSerial();
 
-    void readAction();
+	void readAction();
 
-    bool stopped();
+	bool stopped();
 };
 
 #endif
