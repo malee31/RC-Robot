@@ -1,6 +1,6 @@
 const scheduler = require("./commandScheduler");
 const basicLog = require("console").log;
-jest.mock("./serial.js", () => require("./__mocks__/serial.js"));
+// jest.mock("./serial.js", () => require("./__mocks__/serial.js"));
 
 jest.setTimeout(30000);
 test("Running Main File", async() => {
@@ -15,8 +15,8 @@ test("Running Main File", async() => {
 
 	let delay = 0;
 	for(const command of tests) {
-		delay += command[1];
-		scheduler.emitPromiseBuffer.push(scheduler.emitCommand(...command, delay));
+		delay += command[2];
+		scheduler.emitPromiseBuffer.push(scheduler.emitCommand(command[0], command[1], delay));
 	}
 
 	const finishEmit = new Promise(resolve => scheduler.emitter.on("empty", resolve));
