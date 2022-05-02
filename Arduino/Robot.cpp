@@ -12,7 +12,7 @@ Robot::Robot() {
 }
 
 float adjustMotorValue(float unadjustedPercentage) {
-	if(abs(unadjustedPercentage - 1.0f) > 0.0005f) {
+	if (abs(unadjustedPercentage - 1.0f) > 0.0005f) {
 		Serial.write("Motor value must be between -1 and 1. Adjusted value to bounds");
 		return unadjustedPercentage < 0 ? -1 : 1;
 	}

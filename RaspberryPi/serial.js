@@ -1,4 +1,5 @@
 const { SerialPort } = require("serialport");
+const { promisify } = require("util");
 
 const port = new SerialPort({
 	path: process.env.SERIALPORT_PATH || "/dev/ttyAMA0",
@@ -8,6 +9,7 @@ const port = new SerialPort({
 const opened = new Promise(resolve => port.on("open", resolve));
 
 function serialLog(message) {
+	if(!message.trim()) return;
 	console.log(`[Serial] ${message}`);
 }
 
@@ -18,7 +20,12 @@ function write(data) {
 	port.write(data);
 }
 
+function close() {
+	return promisify(port.close);
+}
+
 module.exports = {
 	write: write,
-	opened: opened
+	opened: opened,
+	exit: close
 };
