@@ -2,6 +2,6 @@
   "cpu": {
     "fqbn": "arduino:avr:leonardo",
     "name": "Arduino Leonardo",
-    "port": "serial://COM6"
+    "port": "serial://COM5"
   }
 }

@@ -3,7 +3,7 @@ const { opened, write } = require("./serial.js");
 const { emitter } = require("./commandScheduler.js");
 
 const indexMain = opened.then(() => {
-	write("Hello");
+	console.log("Hello");
 });
 
 module.exports = indexMain;

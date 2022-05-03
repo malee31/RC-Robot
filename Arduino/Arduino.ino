@@ -17,6 +17,7 @@ void setup() {
 
 void continueAction() {
 	if (commands.stopped()) {
+		// Serial.println("Early Stop");
 		return;
 	}
 	String actionCode = commands.currentInstruction.actionCode;

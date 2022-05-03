@@ -23,6 +23,8 @@ void CommandSerial::readAction() {
 	}
 
 	char readByte = Serial.read();
+	Serial.write("Read: ");
+	Serial.println(readByte);
 	if (CommandSerial::serialState == 1) {
 		// Read actionCode
 		// Separator character
@@ -35,6 +37,7 @@ void CommandSerial::readAction() {
 	} else if (CommandSerial::serialState == 2) {
 		// Read Duration
 		if (isSpace(readByte)) {
+			Serial.println("Command Ready: " + nextInstruction.actionCode);
 			CommandSerial::serialState = 3;
 			return;
 		}

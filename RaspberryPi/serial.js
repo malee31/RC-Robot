@@ -17,7 +17,7 @@ port.on("data", data => data.toString().split("\n").forEach(serialLog));
 
 function write(data) {
 	console.log(`[Signal] ${data}`);
-	port.write(data);
+	port.write(`${data}\n`);
 }
 
 function close() {

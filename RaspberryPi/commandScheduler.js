@@ -18,13 +18,13 @@ async function sleep(duration) {
 }
 
 async function emitCommand(command, duration = 0, delay = 0) {
-	commandBuffer.push([command, duration, delay]);
+	commandBuffer.push(`${command} ${duration}`);
 	await sleep(delay);
 	shiftCommand();
 }
 
 function shiftCommand() {
-	commandEmitter.emit("command", ...commandBuffer.shift());
+	commandEmitter.emit("command", commandBuffer.shift());
 	fireEmpty();
 }
 
