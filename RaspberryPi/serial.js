@@ -6,7 +6,7 @@ const port = new SerialPort({
 	baudRate: 9600,
 });
 
-const opened = new Promise(resolve => port.on("open", resolve));
+const opened = new Promise(resolve => port.once("open", resolve));
 
 function serialLog(message) {
 	if(!message.trim()) return;
@@ -17,7 +17,7 @@ port.on("data", data => data.toString().split("\n").forEach(serialLog));
 
 function write(data) {
 	console.log(`[Signal] ${data}`);
-	port.write(`${data}\n`);
+	return promisify(port.write)(`${data}\n`);
 }
 
 function close() {
