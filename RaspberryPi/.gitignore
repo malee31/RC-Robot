@@ -2,3 +2,5 @@
 .idea/
 private/
 node_modules/
+records/*
+!records/.gitkeep
