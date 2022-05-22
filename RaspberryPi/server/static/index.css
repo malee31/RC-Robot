@@ -54,3 +54,10 @@ body {
 .controls > * {
 	padding: .2rem .5rem;
 }
+
+.control-clickable {
+	background-color: #DDDDDD;
+	border: 1px solid #CCCCCC;
+	border-radius: .2rem;
+	cursor: pointer;
+}
