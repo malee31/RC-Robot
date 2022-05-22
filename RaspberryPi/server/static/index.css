@@ -1,0 +1,56 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	font-family: Arial, sans-serif;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.console-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 80%;
+	height: 50%;
+	padding: 1rem 0;
+}
+
+.console-container:before {
+	position: absolute;
+	top: .5rem;
+	left: .5rem;
+	content: "Console";
+	background-color: #FFFFFF;
+}
+
+.console {
+	width: 100%;
+	height: 100%;
+	padding: .75rem 1rem;
+	border: 1px solid #000000;
+	border-radius: .2rem;
+	overflow-y: auto;
+}
+
+.controls {
+	width: 80%;
+	padding: 1rem 0;
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+
+.controls > * {
+	padding: .2rem .5rem;
+}

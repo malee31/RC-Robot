@@ -1,9 +1,8 @@
 require("dotenv").config();
-const { opened, write } = require("./serial.js");
-const { emitter } = require("./commandScheduler.js");
+const { opened } = require("./serial.js");
 
 const indexMain = opened.then(() => {
-	console.log("Hello");
+	console.log("Serial Opened");
 });
 
 module.exports = indexMain;
