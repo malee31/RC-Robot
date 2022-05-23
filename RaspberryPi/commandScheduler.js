@@ -1,4 +1,5 @@
 const EventEmitter = require('events')
+const RecordFile = require("./recorder");
 const commandEmitter = new EventEmitter();
 
 /**
@@ -12,14 +13,27 @@ const commandEmitter = new EventEmitter();
  */
 const commandBuffer = [];
 const emitPromiseBuffer = [];
+let recordInstance = null;
 
 async function sleep(duration) {
 	return new Promise(resolve => setTimeout(resolve, duration));
 }
 
+async function toggleRecordingInstance() {
+	if(recordInstance) {
+		recordInstance = null;
+		return;
+	}
+	recordInstance = new RecordFile("record.txt", true);
+	return await recordInstance.open();
+}
+
 async function emitCommand(command, duration = 0, delay = 0) {
 	commandBuffer.push(`${command} ${duration}`);
 	await sleep(delay);
+	if(recordInstance) {
+		recordInstance.log(command);
+	}
 	shiftCommand();
 }
 
@@ -38,5 +52,6 @@ module.exports = {
 	emitter: commandEmitter,
 	emitCommand,
 	commandBuffer,
-	emitPromiseBuffer
+	emitPromiseBuffer,
+	toggleRecordingInstance
 };

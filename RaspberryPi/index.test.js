@@ -24,7 +24,16 @@ describe("Serial Mocked with console.log", () => {
 		basicLog("==== Finished Index =====");
 
 		const scheduler = require("./commandScheduler.js");
-		const { tests } = require("./testCommands.json");
+		const tests = [
+			["FORWARD", 0, 0],
+			["REVERSE", 0, 2000],
+			["LED_ON", 0, 2000],
+			["LED_OFF", 0, 1000],
+			["LED_ON", 0, 2000],
+			["LED_OFF", 0, 1000],
+			["LED_ON", 0, 2000],
+			["LED_OFF", 0, 1000]
+		];
 
 		let delay = 0;
 		for(const command of tests) {

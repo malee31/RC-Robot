@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { emitCommand } = require("../commandScheduler");
+const { emitCommand, toggleRecordingInstance } = require("../commandScheduler");
 const app = express();
 let started = false;
 
@@ -10,6 +10,7 @@ app.post("/send/:command", async(req, res) => {
 	const command = req.params.command;
 	if(command === "RECORD") {
 		console.log("Record");
+		await toggleRecordingInstance();
 		return res.send("Recording toggled");
 	}
 	await emitCommand(command);

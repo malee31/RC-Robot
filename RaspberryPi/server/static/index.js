@@ -2,8 +2,7 @@ const textConsole = document.querySelector(".console");
 const controls = document.querySelector(".controls");
 
 function appendToConsole(line) {
-	const newText = textConsole.innerText ? `${textConsole.innerText}\n${line}` : line;
-	textConsole.innerText = newText;
+	textConsole.innerText = textConsole.innerText ? `${textConsole.innerText}\n${line}` : line;
 	textConsole.scrollTop = textConsole.scrollHeight;
 }
 
