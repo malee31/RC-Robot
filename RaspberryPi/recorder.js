@@ -3,11 +3,11 @@ const fs = require("fs");
 const path = require("path");
 
 /**
- * Returns the current time in seconds (Rounded)
- * @returns {number} Current time in seconds
+ * Returns the current time in milliseconds
+ * @returns {number} Current time in milliseconds
  */
 function time() {
-	return Math.round(Date.now() / 1000);
+	return Math.round(Date.now());
 }
 
 module.exports = class RecordFile {
