@@ -15,7 +15,8 @@ async function emitFile(fileName) {
 	}
 }
 
-console.log(require.main)
+module.exports = emitFile;
+
 if(require.main === module) {
 	const fileName = process.argv[2];
 	if(!fileName) {

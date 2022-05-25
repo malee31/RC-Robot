@@ -49,7 +49,7 @@ module.exports = class RecordFile {
 		if(this.readOnly) throw new TypeError(`Record File was Opened in Read-Only Mode: ${this.filePath}`);
 
 		const currentTime = time();
-		const writePromise = this.fileStream.write(`${command} ${currentTime - this.startTime}\n`);
+		const writePromise = this.fileStream.write(`${command} 0 ${currentTime - this.startTime}\n`);
 		this.currentCommand = command;
 		this.startTime = currentTime;
 
@@ -78,5 +78,13 @@ module.exports = class RecordFile {
 	async readLine() {
 		const line = await this.lineGenerator.next();
 		return !line.done ? line.value : "";
+	}
+
+	/**
+	 * Closes recording file
+	 */
+	async end() {
+		if(this.readOnly) return;
+		await new Promise(resolve => this.fileStream.end(resolve));
 	}
 }
