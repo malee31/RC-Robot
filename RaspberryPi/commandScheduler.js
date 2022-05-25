@@ -21,6 +21,7 @@ async function sleep(duration) {
 
 async function toggleRecordingInstance() {
 	if(recordInstance) {
+		await recordInstance.end();
 		recordInstance = null;
 		return;
 	}
