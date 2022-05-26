@@ -1,6 +1,4 @@
-const scheduler = require("../commandScheduler");
 const basicLog = require("console").log;
-const jestLog = console.log;
 jest.setTimeout(30000);
 
 const tests = [
@@ -13,6 +11,7 @@ const tests = [
 	["LED_ON", 0, 2000],
 	["LED_OFF", 0, 1000]
 ];
+
 describe("Command Scheduler", () => {
 	test("Scheduling and Emitting", async() => {
 		expect.assertions(tests.length + 2);
